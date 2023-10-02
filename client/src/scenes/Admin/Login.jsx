@@ -1,38 +1,42 @@
-import React from 'react';
+import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as yup from "yup";
-import { adminLogin } from '../../Api/AdminAxios';
-import {useNavigate} from "react-router-dom"
-
+import { adminLogin } from "../../Api/AdminAxios";
+import { useNavigate } from "react-router-dom";
+import { setadminLogin } from "../../state/slice";
+import {useDispatch} from "react-redux";
 
 const AdminLogin = () => {
-  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
   const validationSchema = yup.object({
     Email: yup.string().email("Invalid email").required("Email is required"),
-    Password: yup.string()
+    Password: yup
+      .string()
       .min(6, "Password must be at least 6 characters")
       .required("Password is required")
   });
 
   const initialValues = {
-    Email:"",
-    Password:""
+    Email: "",
+    Password: ""
   };
 
   async function getUser(values) {
-    adminLogin(values).then((response) =>{
-      navigate("/AdminPanel")
-
-    }).catch ((error) =>{
-      console.error(error);
-    })
+    adminLogin(values)
+      .then(response => {
+        dispatch(setadminLogin())
+        navigate("/AdminPanel");
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 
-  const handleSubmit = (values) => {
+  const handleSubmit = values => {
     console.log(values);
-    getUser(values)
+    getUser(values);
   };
-
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -44,7 +48,6 @@ const AdminLogin = () => {
           onSubmit={handleSubmit}
         >
           <Form>
-         
             <div className="mb-4">
               <Field
                 type="text"
@@ -58,7 +61,7 @@ const AdminLogin = () => {
                 className="text-red-600"
               />
             </div>
-        
+
             <div className="mb-4">
               <Field
                 type="text"
@@ -74,9 +77,6 @@ const AdminLogin = () => {
             </div>
 
             <div className="flex justify-between mb-4">
-              <a href="#" className="text-pink-500 hover:underline">
-                Did'nt have an account? Signup
-              </a>
             </div>
             <div className="flex justify-center">
               <button

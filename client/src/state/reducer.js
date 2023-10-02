@@ -1,9 +1,8 @@
 import { combineReducers } from 'redux';
-import { authSlice } from './state';
+import { authSlice } from './slice';
 
 const reducers = combineReducers({
-  authslice: authSlice 
+  authslice: authSlice.reducer 
 });
 
 export default reducers;
-    

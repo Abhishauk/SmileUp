@@ -2,7 +2,6 @@ const User = require("../../Models/user.js")
 module.exports = {  
 
    adminLogin : async (req, res) => {
-    console.log("sdfsdf");
     try {
       console.log(req.body);
       const { Email, Password } = req.body;
@@ -16,7 +15,6 @@ module.exports = {
     }
   },
   userList: async (req,res) =>{
-    console.log("yyyyyy");
     try {
       const users = await User.find()
       console.log(users);
@@ -30,19 +28,17 @@ module.exports = {
   blockunblock: async (req,res) =>{
     try {
       const userId = req.body.userId;
-      console.log("qqqqqqqq",userId);
       const user = await User.findOne({ _id: userId });
-      console.log(user);
-     if(user.block == true) {
-           user.block = false;
-           user.save()
-           return res.status(200).json("blocked");
-           
-     } else {
-           user.block = true
-           user.save()
-           return res.status(200).json("unblocked")
-     }
+      if(user.block 
+        ) {
+        user.block = false;
+      }else {
+        user.block = true;
+      }
+      user.save()
+      const users =await User.find()
+     
+      res.status(201).json(users);
        
     } catch (error) {
       res.status(500).json({ error: err.message });
