@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 const Header = () => {
   const user = useSelector(state => state.authslice.user);
+  console.log(user);
   return (
     <div>
       <nav className="bg-gradient-to-r from-cyan-500 to-blue-300 ...">
@@ -81,7 +82,7 @@ const Header = () => {
                   <span className="absolute -inset-1.5" />
                   <img
                     className="h-11 w-11 rounded-full "
-                    src="https://images.unsplash.com/photo-1605122897309-17343bb5bfb8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MXw5NjI3ODM1fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60"
+                    src={ user ?user.user.profileImage : null}
                     alt=""
                   />
                 </button>

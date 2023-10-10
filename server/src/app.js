@@ -18,7 +18,8 @@ mongoose.connect(process.env.MONGO_URL, {
 }).catch((error) => console.log(`${error} did not connect`)); 
 
 app.use(express.json());
-
+const path = require('path');
+app.use('/uploads',express.static(path.join(__dirname, 'uploads')));
 app.use('/',userRoutes)
 app.use('/admin',adminRoutes)
 

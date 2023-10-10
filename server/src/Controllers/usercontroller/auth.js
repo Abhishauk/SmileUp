@@ -1,6 +1,19 @@
 
 const User = require("../../Models/user.js")
 const bcrypt = require('bcrypt');
+const multer = require('multer');
+const cloudinary = require('cloudinary').v2;
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+cloudinary.config({ 
+  cloud_name: "dnoc6cmey", 
+  api_key: '196183595267858', 
+  api_secret: 'XgAXdHkB3eITCVaJ5isVPrHTmeQ' 
+});
+
+
 module.exports = {
 
   Register: async (req, res) => {
@@ -71,21 +84,47 @@ module.exports = {
     }
 
   },
+ 
 
   UserProfile: async (req, res) => {
-    console.log("77777777777777", req.file);
+    console.log("ppppppppppppp");
     try {
       if (!req.file) {
         return res.status(400).json({ error: 'No file uploaded' });
       }
-      const { filename, originalname, size, mimetype } = req.file;
-
-
-      return res.status(200).json({ message: 'File uploaded successfully', filename, originalname, size, mimetype });
-
+      const userId = req.body.userId;
+      console.log("pppppppp", userId);
+      const existingUser = await User.findById(userId);
+  
+      if (!existingUser) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+  
+      // Upload the profile picture to Cloudinary
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        folder: 'images/', // Optional folder in Cloudinary
+      });
+  
+      // Save the Cloudinary secure URL in the user's profileImage field
+      existingUser.profileImage = result.secure_url;
+      
+      await existingUser.save();
+      console.log(existingUser);
+  
+      console.log("uuuuuuuuuuu", result.secure_url);
+  
+      return res.status(200).json({
+        message: 'Profile picture uploaded successfully',
+        imageUrl: result.secure_url,
+      });
     } catch (error) {
-      console.error('Error handling file upload:', error);
+      console.error('Error handling profile picture upload:', error);
       return res.status(500).json({ error: 'Internal server error' });
     }
   }
-  }
+  
+}
+
+
+  
+

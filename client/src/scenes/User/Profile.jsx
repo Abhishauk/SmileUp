@@ -19,7 +19,7 @@ const Profile = () => {
         setProfilePicture(event.target.result);
       };
       reader.readAsDataURL(selectedFile);
-      userProfile(selectedFile);
+      userProfile(selectedFile,user);
     }
   };
 
