@@ -7,11 +7,10 @@ import { userProfile } from "../../Api/UserAxios";
 const Profile = () => {
   const user = useSelector((state) => state.authslice.user);
   const [profilePicture, setProfilePicture] = useState(
-    user ? user.profilePicture : ""
+    user ? user.user.profileImage : ""
   );
 
   const handleProfilePictureChange = (e) => {
-    console.log("**********", user);
     const selectedFile = e.target.files[0];
     if (selectedFile) {
       const reader = new FileReader();
@@ -19,7 +18,7 @@ const Profile = () => {
         setProfilePicture(event.target.result);
       };
       reader.readAsDataURL(selectedFile);
-      userProfile(selectedFile,user);
+      userProfile(selectedFile, user);
     }
   };
 
@@ -31,43 +30,44 @@ const Profile = () => {
       </div>
       <div className="mt-10 p-4 ml-96 mr-16">
         <div className="bg-white rounded-md p-6 shadow-md">
-          <h2 className="text-2xl font-semibold mb-4">Profile Page</h2>
+          <h2 className="font-bold text-xl mb-4"><div className="text-black">@{user ? user.user.UserName : ""}</div></h2>
 
           <div className="mb-4">
             <div className="flex items-center">
               <div className="mr-4">
-                <label
-                  htmlFor="profilePictureInput"
-                  className="cursor-pointer hover:underline"
-                >
-                  Upload Profile Picture
+                <label htmlFor="profilePictureInput" className="cursor-pointer">
+                  <img
+                    src={profilePicture || "Guest-user.PNG"}
+                    alt="Guest"
+                    className="h-20 w-20 rounded-full object-cover cursor-pointer"
+                  />
+                  <input
+                    type="file"
+                    id="profilePictureInput"
+                    className="hidden"
+                    accept="image/*"
+                    onChange={handleProfilePictureChange}
+                  />
                 </label>
-                <input
-                  type="file"
-                  id="profilePictureInput"
-                  className="hidden"
-                  accept="image/*"
-                  onChange={handleProfilePictureChange}
-                />
               </div>
               <div>
-                <img
-                  src={profilePicture || "URL_OF_DEFAULT_PROFILE_IMAGE"}
-                  alt="Profile"
-                  className="h-20 w-20 rounded-full object-cover"
-                />
+                <div className="font-bold text-xl">{user ? user.user.Name : ""}</div>
+                <div className="flex mt-2">
+                <div className="mr-4">
+                    <span className="font-semibold">Posts</span>
+                    <span className="block text-gray-500">{user.user.posts}</span> {/* Replace with actual following count */}
+                  </div>
+                  <div className="mr-4">
+                    <span className="font-semibold">Following</span>
+                    <span className="block text-gray-500">{user.user.following}</span> {/* Replace with actual following count */}
+                  </div>
+                  <div>
+                    <span className="font-semibold">Followers</span>
+                    <span className="block text-gray-500">{user.user.follower}</span> {/* Replace with actual followers count */}
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div className="mb-4">
-            <h3 className="text-lg font-semibold">User Information:</h3>
-            {/* Display user information here */}
-          </div>
-
-          <div className="mb-4">
-            <h3 className="text-lg font-semibold">Other Content:</h3>
-            <p>This is some other content related to the user's profile.</p>
           </div>
         </div>
       </div>

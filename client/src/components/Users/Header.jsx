@@ -82,13 +82,13 @@ const Header = () => {
                   <span className="absolute -inset-1.5" />
                   <img
                     className="h-11 w-11 rounded-full "
-                    src={ user ?user.user.profileImage : null}
+                    src={ user ?user.user.profileImage : "Guest-user.PNG"}
                     alt=""
                   />
                 </button>
                 <div className="text-end">
                   <span className="text-white text-sm ml-2">
-                    {user ? user.user.UserName : null}
+                    {user ? user.user.UserName : "Guest"}
                   </span>
                 </div>
               </div>

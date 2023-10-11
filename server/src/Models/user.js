@@ -37,6 +37,18 @@ const UserSchema = new mongoose.Schema(
     },
     profileImage:{
       type:String,
+    },
+    following:{
+      type:String,
+      default:0
+    },
+    follower:{
+      type:String,
+      default:0
+    },
+    posts:{
+      type:String,
+      default:0
     }
  
   },

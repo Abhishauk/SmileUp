@@ -3,14 +3,16 @@ const User = require("../../Models/user.js")
 const bcrypt = require('bcrypt');
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
-
+const dotenv = require("dotenv");
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-cloudinary.config({ 
-  cloud_name: "dnoc6cmey", 
-  api_key: '196183595267858', 
-  api_secret: 'XgAXdHkB3eITCVaJ5isVPrHTmeQ' 
+dotenv.config();
+
+cloudinary.config({
+  cloud_name: process.env.cloud_name,
+  api_key: process.env.api_key,
+  api_secret: process.env.api_secret
 });
 
 
@@ -84,35 +86,28 @@ module.exports = {
     }
 
   },
- 
+
 
   UserProfile: async (req, res) => {
-    console.log("ppppppppppppp");
     try {
       if (!req.file) {
         return res.status(400).json({ error: 'No file uploaded' });
       }
       const userId = req.body.userId;
-      console.log("pppppppp", userId);
       const existingUser = await User.findById(userId);
-  
+
       if (!existingUser) {
         return res.status(404).json({ error: 'User not found' });
       }
-  
-      // Upload the profile picture to Cloudinary
       const result = await cloudinary.uploader.upload(req.file.path, {
-        folder: 'images/', // Optional folder in Cloudinary
+        folder: 'images/',
       });
-  
-      // Save the Cloudinary secure URL in the user's profileImage field
+
       existingUser.profileImage = result.secure_url;
-      
+
       await existingUser.save();
       console.log(existingUser);
-  
-      console.log("uuuuuuuuuuu", result.secure_url);
-  
+
       return res.status(200).json({
         message: 'Profile picture uploaded successfully',
         imageUrl: result.secure_url,
@@ -122,9 +117,9 @@ module.exports = {
       return res.status(500).json({ error: 'Internal server error' });
     }
   }
-  
+
 }
 
 
-  
+
 
