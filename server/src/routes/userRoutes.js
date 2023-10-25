@@ -8,6 +8,9 @@ const router = express.Router();
 router.post("/Register", usercontroller.Register);
 router.post("/Login", usercontroller.Login);
 router.post('/UserProfile', upload.single('profilePicture'), usercontroller.UserProfile);
+router.post('/CreatePost', upload.single('video'),usercontroller.createPost);
+router.post('/Posts',usercontroller.GetPosts);
+router.get('/Home',usercontroller.Home)
 
 
 

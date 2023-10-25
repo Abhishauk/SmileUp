@@ -3,11 +3,14 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Header = () => {
+  const userStrg = localStorage.getItem("user");
+  const users = userStrg ? JSON.parse(userStrg) : null;
+  console.log("..........",users);
   const user = useSelector(state => state.authslice.user);
   console.log(user);
   return (
-    <div>
-      <nav className="bg-gradient-to-r from-cyan-500 to-blue-300 ...">
+    <div className="" >
+      <nav className="bg-gradient-to-r from-cyan-500 to-blue-300 ... ">
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 j">
           <div className="relative flex h-16 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -82,13 +85,13 @@ const Header = () => {
                   <span className="absolute -inset-1.5" />
                   <img
                     className="h-11 w-11 rounded-full "
-                    src={ user ?user.user.profileImage : "Guest-user.PNG"}
+                    src={ user ?users.user.profileImage : "Guest-user.PNG"}
                     alt=""
                   />
                 </button>
                 <div className="text-end">
                   <span className="text-white text-sm ml-2">
-                    {user ? user.user.UserName : "Guest"}
+                    {user ? users.user.UserName : "Guest"}
                   </span>
                 </div>
               </div>

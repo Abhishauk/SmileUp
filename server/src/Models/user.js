@@ -49,7 +49,8 @@ const UserSchema = new mongoose.Schema(
     posts:{
       type:String,
       default:0
-    }
+    },
+   
  
   },
 

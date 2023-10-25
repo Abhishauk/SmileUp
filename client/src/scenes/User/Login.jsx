@@ -1,4 +1,4 @@
-import React from "react";
+import {useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as yup from "yup";
@@ -24,12 +24,24 @@ const Login = () => {
     UserName: "",
     Password: ""
   };
+  const token = localStorage.getItem("token");
+
+  useEffect(()=>{
+    if(token){
+      navigate("/Home")
+    }
+  },[])
 
   async function getUser(values) {
+   
+    
     userLogin(values)
       .then((response) => {
-        console.log(response.data.user);
-        dispatch(setLogin({ user: response.data.user }));
+        console.log(response.data.token);
+        dispatch(setLogin({ 
+          user: response.data.user ,
+          token:response.data.token
+        }));
 
         navigate("/Home");
       })

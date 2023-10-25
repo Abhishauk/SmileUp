@@ -1,11 +1,14 @@
 
 const User = require("../../Models/user.js")
+const Post = require("../../Models/post.js")
 const bcrypt = require('bcrypt');
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 const dotenv = require("dotenv");
+const jwt = require("jsonwebtoken")
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
+
 
 dotenv.config();
 
@@ -76,8 +79,8 @@ module.exports = {
       if (!passMatch) {
         return res.status(400).json({ Login: false, msg: "Invalid credentials. " })
       }
-
-      res.status(201).json({ msg: "User Login successfully", user: user });
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+      res.status(201).json({ msg: "User Login successfully", user: user, token: token });
 
 
 
@@ -116,9 +119,104 @@ module.exports = {
       console.error('Error handling profile picture upload:', error);
       return res.status(500).json({ error: 'Internal server error' });
     }
+  },
+
+
+
+
+  createPost: async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: 'No video uploaded' });
+      }
+
+      const userId = req.body.userId;
+
+      const existingUser = await User.findById(userId);
+
+      if (!existingUser) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        resource_type: 'video',
+        folder: 'videos/',
+      });
+
+      const newPost = new Post({
+        userId: userId,
+        videoUrl: result.secure_url,
+      });
+
+      await newPost.save();
+
+      return res.status(200).json({
+        message: 'Video uploaded successfully',
+        videoUrl: result.secure_url,
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+  },
+  GetPosts: async (req, res) => {
+    try {
+      const userId = req.body.userId
+      console.log("xxxxxxxxxx", userId);
+      const posts = await Post.find({ userId: userId });
+      console.log("mmmmmmmmmm", posts);
+      return res.status(200).json({ posts })
+
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+
+
+  },
+  // Home: async  (req,res) => {
+  //   try {
+  //    const posts = await Post.find();
+  //    console.log("ddddddddddd",posts);
+  //    return res.status(200).json({posts})
+
+  //   } catch (error) {
+  //     res.status(500).json({ error: error.message });
+  //   }
+  // }
+  Home: async (req, res) => {
+    try {
+      const postsDetails = await Post.aggregate([
+        {
+          $lookup: {
+            from: "users",
+            localField: "userId",
+            foreignField: "_id",
+            as: "userDetails",
+          },
+        },
+      ]);
+
+      const formattedPosts = postsDetails.map((post) => {
+        const postData = post;
+        const userDetails = post.userDetails[0];
+        const combinedData = {
+          ...postData,
+          userDetails,
+        };
+        console.log("zzzzzzzzzzz", combinedData);
+
+        return combinedData;
+      });
+      console.log("555555555555",formattedPosts);
+
+      res.status(200).json({ posts: formattedPosts });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
   }
 
 }
+
 
 
 
