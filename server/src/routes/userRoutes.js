@@ -11,6 +11,9 @@ router.post('/UserProfile', upload.single('profilePicture'), usercontroller.User
 router.post('/CreatePost', upload.single('video'),usercontroller.createPost);
 router.post('/Posts',usercontroller.GetPosts);
 router.get('/Home',usercontroller.Home)
+router.post("/SearchUser",usercontroller.SearchUser);
+router.post("/SerachUserProfile",usercontroller.SerachUserProfile)
+router.get("/getDatas",usercontroller.getDatas);
 
 
 

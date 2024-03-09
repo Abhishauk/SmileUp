@@ -3,16 +3,14 @@ import { useSelector } from "react-redux";
 import Header from "../../components/Users/Header";
 import Navbar from "../../components/Users/navbar";
 import { userProfile } from "../../Api/UserAxios";
-import { GetPost, Posts } from "../../Api/PostAxios";
+import { GetPost } from "../../Api/PostAxios";
 
 const Profile = () => {
   const user = useSelector((state) => state.authslice.user);
-  console.log("jjjjjjjj", user);
-  const post = useSelector((state) => state.authslice.post);
-  console.log("kkkkkkkk", post);
   const [profilePicture, setProfilePicture] = useState(
     user ? user.user.profileImage : ""
   );
+  console.log("pppppppp",user);
 
   const handleProfilePictureChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -24,9 +22,9 @@ const Profile = () => {
       reader.readAsDataURL(selectedFile);
       userProfile(selectedFile, user);
     }
-  }
-  
-  const [postsData, setPostsData] = useState([]); // This state variable holds your post data
+  };
+
+  const [postsData, setPostsData] = useState([]);
 
   useEffect(() => {
     async function getData() {
@@ -35,7 +33,7 @@ const Profile = () => {
           GetPost(user).then((posts) => {
             console.log("Posts: ", posts.data.posts);
             const postsData = posts.data.posts;
-            setPostsData(postsData); // Store the posts data in the state variable
+            setPostsData(postsData);
           });
         }
       } catch (error) {
@@ -46,12 +44,12 @@ const Profile = () => {
   }, [user]);
 
   return (
-    <div>
+    <div >
       <div>
         <Header />
         <Navbar />
       </div>
-      <div className="mt-10 p-4 ml-96 mr-16">
+      <div className="mt-20 p-4 ml-96 mr-16 ">
         <div className="bg-white rounded-md p-6 shadow-md ml-28">
           <h2 className="font-bold text-xl mb-4">
             <div className="text-black">@{user ? user.user.UserName : ""}</div>
@@ -85,21 +83,18 @@ const Profile = () => {
                     <span className="block text-gray-500">
                       {user.user.posts}
                     </span>{" "}
-                    {/* Replace with actual following count */}
                   </div>
                   <div className="mr-4">
                     <span className="font-semibold">Following</span>
                     <span className="block text-gray-500">
                       {user.user.following}
                     </span>{" "}
-                    {/* Replace with actual following count */}
                   </div>
                   <div>
                     <span className="font-semibold">Followers</span>
                     <span className="block text-gray-500">
                       {user.user.follower}
                     </span>{" "}
-                    {/* Replace with actual followers count */}
                   </div>
                 </div>
               </div>
@@ -107,21 +102,17 @@ const Profile = () => {
           </div>
         </div>
         <div className="bg-white rounded-md p-6 shadow-md ml-28 mt-5">
-  <div className="grid grid-cols-3 gap-4"> {/* Use a 3-column grid layout */}
-    {postsData.map((post, index) => (
-      <div key={index} className="video-container">
-        {/* Render post content here */}
-        <p>{post.caption}</p>
-        <video controls>
-          <source src={post.videoUrl} type="video/mp4" />
-        </video>
-      </div>
-    ))}
-  </div>
-</div>
-
-
-
+          <div className="grid grid-cols-3 gap-4">
+            {postsData.map((post, index) => (
+              <div key={index} className="video-container">
+                <p>{post.caption}</p>
+                <video controls>
+                  <source src={post.videoUrl} type="video/mp4" />
+                </video>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

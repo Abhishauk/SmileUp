@@ -4,7 +4,7 @@ import Navbar from '../../components/Users/navbar';
 import Posts from '../../components/Users/Posts';
 const Home = () => {
   return (
-    <div>
+    <div className='bg-white'>
         <Header/>
         <Navbar /> 
         <Posts />   

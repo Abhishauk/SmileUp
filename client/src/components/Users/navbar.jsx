@@ -13,8 +13,11 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { setLogout, clearUser, clearToken } from "../../state/slice";
 import { useNavigate } from "react-router-dom";
-import CustomModal from "./modal";
+import CreatePostModal from "./CreatePostModal";
+import SearchModal from "./SearchModal";
 import { createpost } from "../../Api/PostAxios";
+import { SerachUser } from "../../Api/UserAxios";
+import MessageModal from "./Messages";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -29,25 +32,44 @@ const Navbar = () => {
   };
 
   const handleClick = () => {
-    const userId = user._id; // Assuming the user object has a _id property
+    const userId = user._id;
     navigate("/Profile");
   };
 
-  const [isModalOpen, setModalOpen] = useState(false);
-  const openModal = () => {
-    setModalOpen(true);
+  const [isCreatePostModalOpen, setCreatePostModalOpen] = useState(false);
+  const [isSearchModalOpen, setSearchModalOpen] = useState(false);
+  const [isMessageModalOpen,setMessageModalOpen] = useState(false);
+
+  const openCreatePostModal = () => {
+    setCreatePostModalOpen(true);
   };
-  const closeModal = () => {
-    setModalOpen(false);
+  const closeCreatePostModal = () => {
+    setCreatePostModalOpen(false);
   };
+
   const home = () => {
-   navigate("/Home");
+    navigate("/Home");
+  };
+
+  const openSearchModal = () => {
+    setSearchModalOpen(true);
+  };
+
+  const closeSearchModal = () => {
+    setSearchModalOpen(false);
+  };
+  const openMessageModal = () => {
+    setMessageModalOpen(true);
+  };
+
+  const closeMessageModal = () => {
+    setMessageModalOpen(false);
   };
 
   const [videoFile, setVideoFile] = useState(null);
 
   return (
-    <div className="bg-gradient-to-r from-cyan-500 to-blue-300 ... rounded-3xl w-1/5 fixed left-0 py-4 px-2 mt-5 ml-20 mb-40 h-96 ">
+    <div className="bg-gradient-to-r from-cyan-500 to-blue-300 ... rounded-3xl w-1/5 fixed left-0 py-4 px-2 mt-10 ml-20 mb-40 h-96 ">
       <nav>
         <ul>
           <li className="mb-2">
@@ -60,7 +82,7 @@ const Navbar = () => {
           </li>
           <li className="mb-2">
             <a
-              href="#"
+              onClick={openSearchModal}
               className="block text-white hover:bg-white hover:text-black py-2 px-4 rounded transition duration-300"
             >
               <FontAwesomeIcon icon={faSearch} className="mr-2" /> Search
@@ -68,7 +90,7 @@ const Navbar = () => {
           </li>
           <li className="mb-2">
             <a
-              href="#"
+              onClick={openMessageModal}
               className="block text-white hover:bg-white hover:text-black py-2 px-4 rounded transition duration-300"
             >
               <FontAwesomeIcon icon={faEnvelope} className="mr-2" /> Messages
@@ -76,7 +98,7 @@ const Navbar = () => {
           </li>
           <li className="mb-2">
             <a
-              onClick={openModal}
+              onClick={openCreatePostModal}
               className="block text-white hover:bg-white hover:text-black py-2 px-4 rounded transition duration-300"
             >
               <FontAwesomeIcon icon={faPlus} className="mr-2" /> Create
@@ -117,15 +139,25 @@ const Navbar = () => {
         </ul>
       </nav>
 
-      <CustomModal
-        isModalOpen={isModalOpen}
-        closeModal={closeModal}
+      <CreatePostModal
+        isModalOpen={isCreatePostModalOpen}
+        closeModal={closeCreatePostModal}
         handleVideoDrop={(file) => {
           createpost(file, user);
           setVideoFile(file);
         }}
         videoFile={videoFile}
       />
+
+<SearchModal
+        isOpen={isSearchModalOpen}
+        onRequestClose={closeSearchModal}
+      />
+
+      <MessageModal
+           isOpen={isMessageModalOpen}
+           onRequestClose={closeMessageModal}
+           />
     </div>
   );
 };

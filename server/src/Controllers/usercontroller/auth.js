@@ -203,15 +203,55 @@ module.exports = {
           ...postData,
           userDetails,
         };
-        console.log("zzzzzzzzzzz", combinedData);
-
         return combinedData;
-      });
-      console.log("555555555555",formattedPosts);
+      })
 
       res.status(200).json({ posts: formattedPosts });
     } catch (error) {
       res.status(500).json({ error: error.message });
+    }
+  },
+
+  SearchUser: async(req,res) => {
+    console.log("11111111111",req.body);
+    try {
+      let searchName = req.body.users;
+      console.log(searchName);
+      const users = await User.find({ UserName: { $regex: new RegExp(`^${searchName}`, 'i') } });
+
+      
+      console.log(users);   
+
+      return res.status(200).json({users})
+      
+    } catch (error) {
+      res.status(500).json({ error: err.message });
+    }
+  },
+  SerachUserProfile: async(req , res) => {
+      console.log("::::::::;",req.body);
+      try {
+        const { userId } = req.body;
+        console.log("kkk", userId);
+    
+        // Assuming User is a Mongoose model
+        const userData = await User.findById(userId);
+    
+        console.log("uuuuu", userData);
+        return res.status(200).json({userData})
+      } catch (error) {
+        
+      }
+  },
+  getDatas : async(req ,res) => {
+    console.log("mnnmnmnmnmnm");
+    try {
+      const datas =  await User.find();
+      console.log(".......///////",datas);
+      return res.status(200).json({datas})
+      
+    } catch (error) {
+      
     }
   }
 

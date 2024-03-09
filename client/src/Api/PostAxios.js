@@ -19,11 +19,13 @@ export const createpost = async (file,userid) => {
       
     }
   }
-  export const GetPost = async (userid) => {
+  export const GetPost = async (user) => {
     try {
-      const userId = userid.user._id;
+      console.log("111111",user);
+      const userId = user.user._id;
       console.log("qaqaqaq", userId);
       const posts = await axios.post('http://localhost:3001/Posts', { userId });
+      console.log("sssssssssss",posts);
       return posts;
     } catch (error) {
       

@@ -6,7 +6,9 @@ import UserManage from './scenes/Admin/userManage';
 import {Routes,Route} from 'react-router-dom';
 import Home from './scenes/User/Home';
 import Profile from './scenes/User/Profile';
+import SearchProfile from './components/Users/SearchProfile';
 // import CreatePost from './scenes/User/createPost'
+import Messages from './components/Users/Messages';
 
 
 function App() {
@@ -21,7 +23,10 @@ function App() {
         <Route path='/users' element={<UserManage/>}/>
         <Route path='/Home' element={<Home/>}/>
         <Route path='/Profile' element={<Profile/>}/>
-        {/* <Route path='/CreatePost' element = {<CreatePost/>}/> */}
+        <Route path='/Messages' element={<Messages/>}/>
+        <Route path="/SearchProfile/:userId" element={<SearchProfile />} />
+
+        {/* <Route path='/Search' element = {<Search/>}/> */}
 
         
 
