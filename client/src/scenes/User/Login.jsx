@@ -62,8 +62,8 @@ const Login = () => {
     <div>
       <div><Header/></div>
     
-    <div className="min-h-screen flex items-center justify-center bg-white">
-      <div className="bg-white p-8 rounded shadow-md w-96 mb-60">
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="bg-white p-8 rounded shadow-md w-96 mb-60 mt-24">
         <h2 className="text-2xl font-semibold mb-4 text-center">Login</h2>
 
         <Formik

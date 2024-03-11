@@ -1,6 +1,6 @@
 const express = require("express");
 const usercontroller = require("../Controllers/usercontroller/auth.js");
-const upload =require("../../src/config/multer.js")
+const upload =require("../config/multer.js")
 
 
 const router = express.Router();
@@ -14,6 +14,7 @@ router.get('/Home',usercontroller.Home)
 router.post("/SearchUser",usercontroller.SearchUser);
 router.post("/SerachUserProfile",usercontroller.SerachUserProfile)
 router.get("/getDatas",usercontroller.getDatas);
+
 
 
 
