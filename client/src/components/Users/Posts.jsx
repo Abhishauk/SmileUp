@@ -36,9 +36,9 @@ const Post = () => {
               <img
                 src={post.userDetails.profileImage}
                 alt="Guest"
-                className="h-20 w-20 rounded-full object-cover cursor-pointer"
+                className="h-10 w-10 rounded-full object-cover cursor-pointer"
               />
-              <p className="name font-bold text-center ml-2">
+              <p className="name font-bold text-center ml-2 text-xs">
                 {post.userDetails.UserName}
               </p>
             </div>
@@ -58,11 +58,11 @@ const Post = () => {
                 <input
                   type="text"
                   placeholder="Add a comment..."
-                  className="w-full outline-none border-none text-sm"
+                  className="w-full outline-none border-none text-xs"
                 />
               </div>
               <div className="right-side">
-                <button className="font-semibold text-blue-500">
+                <button className="font-semibold text-blue-500 text-xs">
                   Post {post.userDetails.UserName}
                 </button>
               </div>

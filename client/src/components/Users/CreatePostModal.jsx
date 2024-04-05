@@ -37,7 +37,7 @@ const ModalContent = ({
       <button onClick={closeModal} className="text-xl absolute top-4 right-4">
         <FontAwesomeIcon icon={faTimes} />
       </button>
-      <h1 className="text-2xl font-bold mb-4 ml-2">Create Post</h1>
+      <h1 className="text-lg font-bold mb-4 ml-2">Create Post</h1>
 
       {/* Drop zone and custom upload button */}
       <div
@@ -121,8 +121,8 @@ const CreatePostModal = ({ isModalOpen, closeModal, setVideoFile }) => {
           backgroundColor: "rgba(0, 0, 0, 0.5)"
         },
         content: {
-          width: "90%", 
-          maxWidth: "500px", 
+          width: "50%", 
+          Width: "80%", 
           height: "80vh", 
           margin: "auto",
           display: "flex",
@@ -131,7 +131,7 @@ const CreatePostModal = ({ isModalOpen, closeModal, setVideoFile }) => {
           alignItems: "center",
           padding: "20px",
           backgroundColor: "white",
-          marginTop:"50px",
+          marginTop:"10px",
         }
       }}
     >

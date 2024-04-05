@@ -49,7 +49,7 @@ const Profile = () => {
         <Header />
         <Navbar />
       </div>
-      <div className="mt-20 p-4 ml-96 mr-16 ">
+      <div className="mt-20 p-4 ml-44 mr-16 ">
         <div className="bg-white rounded-md p-6 shadow-md ml-28">
           <h2 className="font-bold text-xl mb-4">
             <div className="text-black">@{user ? user.user.UserName : ""}</div>

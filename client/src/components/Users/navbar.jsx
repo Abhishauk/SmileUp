@@ -69,13 +69,13 @@ const Navbar = () => {
   const [videoFile, setVideoFile] = useState(null);
 
   return (
-    <div className="bg-gradient-to-r from-cyan-500 to-blue-300 rounded-3xl w-60 fixed left-10 top-20 py-4 px-2">
+    <div className="bg-gradient-to-r from-cyan-500 to-blue-300 rounded-xl w-44 fixed left-10 top-20 py-1 px-2 ">
       <nav>
         <ul className="text-white">
           <li className="mb-2">
             <a
               onClick={home}
-              className="block hover:bg-white hover:text-black py-2 px-4 rounded transition duration-300 text-sm"
+              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs"
             >
               <FontAwesomeIcon icon={faHome} className="mr-2" /> Home
             </a>
@@ -83,7 +83,7 @@ const Navbar = () => {
           <li className="mb-2">
             <a
               onClick={openSearchModal}
-              className="block hover:bg-white hover:text-black py-2 px-4 rounded transition duration-300 text-sm"
+              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs"
             >
               <FontAwesomeIcon icon={faSearch} className="mr-2" /> Search
             </a>
@@ -91,7 +91,7 @@ const Navbar = () => {
           <li className="mb-2">
             <a
               onClick={openMessageModal}
-              className="block hover:bg-white hover:text-black py-2 px-4 rounded transition duration-300 text-sm"
+              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs"
             >
               <FontAwesomeIcon icon={faEnvelope} className="mr-2" /> Messages
             </a>
@@ -99,7 +99,7 @@ const Navbar = () => {
           <li className="mb-2">
             <a
               onClick={openCreatePostModal}
-              className="block hover:bg-white hover:text-black py-2 px-4 rounded transition duration-300 text-sm"
+              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs"
             >
               <FontAwesomeIcon icon={faPlus} className="mr-2" /> Create
             </a>
@@ -107,7 +107,7 @@ const Navbar = () => {
           <li className="mb-2">
             <a
               href="#"
-              className="block hover:bg-white hover:text-black py-2 px-4 rounded transition duration-300 text-sm"
+              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs"
             >
               <FontAwesomeIcon icon={faBell} className="mr-2" /> Notification
             </a>
@@ -115,7 +115,7 @@ const Navbar = () => {
           <li className="mb-2">
             <a
               href="#"
-              className="block hover:bg-white hover:text-black py-2 px-4 rounded transition duration-300"
+              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs"
             >
               <FontAwesomeIcon icon={faCog} className="mr-2" /> Settings
             </a>
@@ -123,7 +123,7 @@ const Navbar = () => {
           <li className="mb-2">
             <a
               onClick={Logout}
-              className="block hover:bg-white hover:text-black py-2 px-4 rounded transition duration-300"
+              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs"
             >
               <FontAwesomeIcon icon={faSignOutAlt} className="mr-2" /> Logout
             </a>
@@ -131,7 +131,7 @@ const Navbar = () => {
           <li>
             <a
               onClick={handleClick}
-              className="block hover:bg-white hover:text-black py-2 px-4 rounded transition duration-300"
+              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs" 
             >
               <FontAwesomeIcon icon={faUser} className="mr-2" /> Profile
             </a>

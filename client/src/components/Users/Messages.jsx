@@ -55,17 +55,17 @@ const MessageModal = ({ isOpen, onRequestClose }) => {
             backgroundColor: "rgba(0, 0, 0, 0.5)"
           },
           content: {
-            width: "500px",
-            height: "460px",
+            width: "40%",
+            height: "80%",
             margin: "auto",
             display: "flex",
             flexDirection: "column",
             justifyContent: "flex-start",
             alignItems: "flex-start",
             padding: "20px",
-            marginTop: "48px",
             backgroundColor: "white",
-            border: "none"
+            border: "none",
+            marginTop:"10px"
           }
         }}
       >
@@ -112,15 +112,15 @@ const MessageModal = ({ isOpen, onRequestClose }) => {
             backgroundColor: "rgba(0, 0, 0, 0.5)"
           },
           content: {
-            width: "500px", // Same width as the main modal
-            height: "460px", // Same height as the main modal
+            width: "40%",
+            height: "80%",
             margin: "auto",
             display: "flex",
             flexDirection: "column",
             justifyContent: "flex-start",
             alignItems: "flex-start",
             padding: "20px",
-            marginTop: "48px",
+            marginTop: "10px",
             backgroundColor: "white",
             border: "none",
             transform: showListModal ? "translateX(0)" : "translateX(-100%)", // Slide from left to right

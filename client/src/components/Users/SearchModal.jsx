@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 Modal.setAppElement("#root");
 
 const ModalContent = ({ onRequestClose }) => {
-
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -28,10 +27,10 @@ const ModalContent = ({ onRequestClose }) => {
       // Handle errors here, e.g., show an error message to the user
     }
   };
+
   const handleprofile = (userId) => {
     navigate(`/SearchProfile/${userId}`); // Navigate to the search profile page with user ID
   };
-
 
   const handleButtonClick = (index) => {
     // Create a new array with the updated isFollowed value for the clicked user
@@ -41,7 +40,7 @@ const ModalContent = ({ onRequestClose }) => {
       return newArray;
     });
   };
-  
+
   return (
     <div className="flex flex-col items-start">
       <button
@@ -53,14 +52,16 @@ const ModalContent = ({ onRequestClose }) => {
       <div className="flex justify-between w-full">
         <input
           type="text"
-          placeholder="Enter your search query"
+          placeholder="Search"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="border border-gray-300 p-2 mb-4 w-full h-10 rounded-l-lg bg-white"
+          className="border border-gray-300 p-2 mb-4 w-40 h-8 rounded-l-lg bg-white text-xs"
+          style={{ minWidth: "100px" }} // Set minimum width for the input field
         />
         <button
           onClick={handleSearch}
-          className="bg-cyan-500 text-white px-4 py-2 h-10 rounded-r-lg"
+          className="bg-cyan-500 text-white px-2 py-1 h-8 rounded-r-lg"
+          style={{ minWidth: "30px" }} // Set minimum width for the search button
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +69,7 @@ const ModalContent = ({ onRequestClose }) => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className="w-4 h-4"
           >
             <path
               strokeLinecap="round"
@@ -80,34 +81,46 @@ const ModalContent = ({ onRequestClose }) => {
       </div>
 
       {searchResults.length > 0 && (
-       <div className="mt-4">
-       <h3 className="text-lg font-bold mb-2">Search Results:</h3>
-       <div className="grid grid-cols-1 gap-4 w-96 ">
-         {searchResults.map((user , index) => (
-            <div key={user._id} className="flex items-center border rounded-md p-4">
-            <img
-              src={user.profileImage ? user.profileImage : "Guest-user.PNG"}
-              alt=""
-              onClick={() => handleprofile(user._id)}
-              className="w-10 h-10 rounded-full mr-4"
-            />
-             <div className="flex-grow">
-               <p className="font-semi-bold mb-2">{user.UserName}</p>
-             </div>
-             <div className="">
-             <button
-                  style={{ backgroundColor: isFollowedArray[index] ? 'black' : 'cyan', color: 'white'}}
-                  className="px-2 py-2 rounded-md"
-                  onClick={() => handleButtonClick(index)}
-                >
-                  {isFollowedArray[index] ? 'Unfollow' : 'Follow'}
-                </button>
-             </div>
-           </div>
-         ))}
-       </div>
-  
-     
+        <div className="mt-4">
+          <h3 className="text-sm font-bold mb-2">Search Results:</h3>
+          <div className="grid grid-cols-1 gap-4">
+            {searchResults.map((user, index) => (
+              <div
+                key={user._id}
+                className="bg-white rounded-md shadow-md p-4 w-64"
+              >
+                <div className="flex items-center">
+                  <img
+                    src={
+                      user.profileImage
+                        ? user.profileImage
+                        : "Guest-user.PNG"
+                    }
+                    alt=""
+                    onClick={() => handleprofile(user._id)}
+                    className="w-10 h-10 rounded-full mr-4 cursor-pointer"
+                  />
+                  <div>
+                    <p className="font-semi-bold mb-1 text-sm">
+                      {user.UserName}
+                    </p>
+                    <button
+                      style={{
+                        backgroundColor: isFollowedArray[index]
+                          ? "black"
+                          : "cyan",
+                        color: "white",
+                      }}
+                      className="px-2 py-1 rounded-md text-xs"
+                      onClick={() => handleButtonClick(index)}
+                    >
+                      {isFollowedArray[index] ? "Unfollow" : "Follow"}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>
@@ -122,19 +135,19 @@ const SearchModal = ({ isOpen, onRequestClose }) => {
       contentLabel="Search Modal"
       style={{
         overlay: {
-          backgroundColor: "rgba(0, 0, 0, 0.5)"
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
         },
         content: {
-          width: "500px",
-          height: "488px",
+          width: "50%", // Adjust the width as a percentage of the modal box
+          height: "80%", // Adjust the height as a percentage of the modal box
           margin: "auto",
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-start",
           alignItems: "center",
           padding: "20px",
-          marginTop:"48px"
-        }
+          marginTop: "10px",
+        },
       }}
     >
       <ModalContent onRequestClose={onRequestClose} />
