@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as yup from "yup";
@@ -26,22 +26,22 @@ const Login = () => {
   };
   const token = localStorage.getItem("token");
 
-  useEffect(()=>{
-    if(token){
-      navigate("/Home")
+  useEffect(() => {
+    if (token) {
+      navigate("/Home");
     }
-  },[])
+  }, []);
 
   async function getUser(values) {
-   
-    
     userLogin(values)
       .then((response) => {
         console.log(response.data.token);
-        dispatch(setLogin({ 
-          user: response.data.user ,
-          token:response.data.token
-        }));
+        dispatch(
+          setLogin({
+            user: response.data.user,
+            token: response.data.token
+          })
+        );
 
         navigate("/Home");
       })
@@ -59,12 +59,11 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <div><Header/></div>
+    <div className="flex flex-col items-center justify-center h-screen">
+      <div className="fixed top-0 w-full z-50"><Header/></div>
     
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="bg-white p-8 rounded shadow-md w-96 mb-60 mt-24">
-        <h2 className="text-2xl font-semibold mb-4 text-center">Login</h2>
+      <div className="bg-white p-6 rounded shadow-md w-64 mt-20">
+        <h2 className="text-lg font-semibold mb-4 text-center">Login</h2>
 
         <Formik
           initialValues={initialValues}
@@ -72,43 +71,46 @@ const Login = () => {
           onSubmit={handleSubmit}
         >
           <Form>
-            <div className="mb-4">
+            <div className="mb-2">
               <Field
                 type="text"
                 name="UserName"
                 placeholder="Username"
-                className="border rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-400"
+                className="border rounded-md px-2 py-1 w-full focus:outline-none focus:border-blue-400 text-xs"
               />
               <ErrorMessage
                 name="UserName"
                 component="div"
-                className="text-red-600"
+                className="text-red-600 text-xs"
               />
             </div>
 
-            <div className="mb-4">
+            <div className="mb-2">
               <Field
-                type="text"
+                type="password"
                 name="Password"
                 placeholder="Password"
-                className="border rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-400"
+                className="border rounded-md px-2 py-1 w-full focus:outline-none focus:border-blue-400 text-xs"
               />
               <ErrorMessage
                 name="Password"
                 component="div"
-                className="text-red-600"
+                className="text-red-600 text-xs"
               />
             </div>
 
-            <div className="flex justify-between mb-4">
-              <a href="/userSignup" className="text-blue-400 hover:underline">
+            <div className="flex justify-between mb-2">
+              <a
+                href="/userSignup"
+                className="text-blue-400 hover:underline text-xs"
+              >
                 Didn't have an account? Signup
               </a>
             </div>
             <div className="flex justify-center">
               <button
                 type="submit"
-                className="bg-gradient-to-r from-cyan-500 to-blue-300 ... text-white px-4 py-2 rounded-md hover:bg-cyan-500"
+                className="bg-gradient-to-r from-cyan-500 to-blue-300 text-white px-3 py-1 rounded-md hover:bg-cyan-500 text-sm"
               >
                 LOGIN
               </button>
@@ -117,7 +119,6 @@ const Login = () => {
         </Formik>
       </div>
       <ToastContainer />
-    </div>
     </div>
   );
 };

@@ -38,7 +38,7 @@ const Navbar = () => {
 
   const [isCreatePostModalOpen, setCreatePostModalOpen] = useState(false);
   const [isSearchModalOpen, setSearchModalOpen] = useState(false);
-  const [isMessageModalOpen,setMessageModalOpen] = useState(false);
+  const [isMessageModalOpen, setMessageModalOpen] = useState(false);
 
   const openCreatePostModal = () => {
     setCreatePostModalOpen(true);
@@ -69,13 +69,13 @@ const Navbar = () => {
   const [videoFile, setVideoFile] = useState(null);
 
   return (
-    <div className="bg-gradient-to-r from-cyan-500 to-blue-300 ... rounded-3xl w-1/5 fixed left-0 py-4 px-2 mt-10 ml-20 mb-40 h-96 ">
+    <div className="bg-gradient-to-r from-cyan-500 to-blue-300 rounded-3xl w-60 fixed left-10 top-20 py-4 px-2">
       <nav>
-        <ul>
+        <ul className="text-white">
           <li className="mb-2">
             <a
               onClick={home}
-              className="block text-white hover:bg-white hover:text-black py-2 px-4 rounded transition duration-300"
+              className="block hover:bg-white hover:text-black py-2 px-4 rounded transition duration-300 text-sm"
             >
               <FontAwesomeIcon icon={faHome} className="mr-2" /> Home
             </a>
@@ -83,7 +83,7 @@ const Navbar = () => {
           <li className="mb-2">
             <a
               onClick={openSearchModal}
-              className="block text-white hover:bg-white hover:text-black py-2 px-4 rounded transition duration-300"
+              className="block hover:bg-white hover:text-black py-2 px-4 rounded transition duration-300 text-sm"
             >
               <FontAwesomeIcon icon={faSearch} className="mr-2" /> Search
             </a>
@@ -91,7 +91,7 @@ const Navbar = () => {
           <li className="mb-2">
             <a
               onClick={openMessageModal}
-              className="block text-white hover:bg-white hover:text-black py-2 px-4 rounded transition duration-300"
+              className="block hover:bg-white hover:text-black py-2 px-4 rounded transition duration-300 text-sm"
             >
               <FontAwesomeIcon icon={faEnvelope} className="mr-2" /> Messages
             </a>
@@ -99,31 +99,31 @@ const Navbar = () => {
           <li className="mb-2">
             <a
               onClick={openCreatePostModal}
-              className="block text-white hover:bg-white hover:text-black py-2 px-4 rounded transition duration-300"
+              className="block hover:bg-white hover:text-black py-2 px-4 rounded transition duration-300 text-sm"
             >
               <FontAwesomeIcon icon={faPlus} className="mr-2" /> Create
             </a>
           </li>
-          <li>
+          <li className="mb-2">
             <a
               href="#"
-              className="block text-white hover:bg-white hover:text-black py-2 px-4 rounded transition duration-300"
+              className="block hover:bg-white hover:text-black py-2 px-4 rounded transition duration-300 text-sm"
             >
               <FontAwesomeIcon icon={faBell} className="mr-2" /> Notification
             </a>
           </li>
-          <li>
+          <li className="mb-2">
             <a
               href="#"
-              className="block text-white hover:bg-white hover:text-black py-2 px-4 rounded transition duration-300"
+              className="block hover:bg-white hover:text-black py-2 px-4 rounded transition duration-300"
             >
               <FontAwesomeIcon icon={faCog} className="mr-2" /> Settings
             </a>
           </li>
-          <li>
+          <li className="mb-2">
             <a
-              onClick={Logout} // Removed unnecessary arrow function
-              className="block text-white hover:bg-white hover:text-black py-2 px-4 rounded transition duration-300"
+              onClick={Logout}
+              className="block hover:bg-white hover:text-black py-2 px-4 rounded transition duration-300"
             >
               <FontAwesomeIcon icon={faSignOutAlt} className="mr-2" /> Logout
             </a>
@@ -131,7 +131,7 @@ const Navbar = () => {
           <li>
             <a
               onClick={handleClick}
-              className="block text-white hover:bg-white hover:text-black py-2 px-4 rounded transition duration-300"
+              className="block hover:bg-white hover:text-black py-2 px-4 rounded transition duration-300"
             >
               <FontAwesomeIcon icon={faUser} className="mr-2" /> Profile
             </a>
@@ -149,15 +149,15 @@ const Navbar = () => {
         videoFile={videoFile}
       />
 
-<SearchModal
+      <SearchModal
         isOpen={isSearchModalOpen}
         onRequestClose={closeSearchModal}
       />
 
       <MessageModal
-           isOpen={isMessageModalOpen}
-           onRequestClose={closeMessageModal}
-           />
+        isOpen={isMessageModalOpen}
+        onRequestClose={closeMessageModal}
+      />
     </div>
   );
 };

@@ -12,7 +12,7 @@ import Header from "../../components/Users/Header";
 const Signup = () => {
   const navigate = useNavigate();
   const validationSchema = yup.object({
-    UserName: yup.string().required(" UserName is required"),
+    UserName: yup.string().required("UserName is required"),
     Name: yup.string().required("Name is required"),
     Email: yup.string().email("Invalid email").required("Email is required"),
     Phone: yup
@@ -57,124 +57,121 @@ const Signup = () => {
   const handleSubmit = (values, { setFieldValue }) => {
     values.DOB = dob ? dob.toISOString() : null;
 
-    console.log(values);
-
     getUser(values);
   };
 
   return (
-    <div>
-    <div> <Header /></div>
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded shadow-md w-96 mb-32">
-        <h2 className="text-2xl font-semibold mb-4 text-center">
-          Create NewUser
-        </h2>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={handleSubmit}
-        >
-          <Form>
-            <div className="mb-4">
-              <Field
-                type="text"
-                name="UserName"
-                placeholder="Username"
-                className="border rounded-md px-3 py-2 w-full focus:outline-none focus:border-pink-500"
-              />
-              <ErrorMessage
-                name="UserName"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <Field
-                type="text"
-                name="Name"
-                placeholder="Name"
-                className="border rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-400"
-              />
-              <ErrorMessage
-                name="Name"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <Field
-                type="text"
-                name="Email"
-                placeholder="Email"
-                className="border rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-400"
-              />
-              <ErrorMessage
-                name="Email"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <Field
-                type="text"
-                name="Phone"
-                placeholder="Phone"
-                className="border rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-400"
-              />
-              <ErrorMessage
-                name="Phone"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              {/* Hidden input field for DOB */}
-              <input
-                type="hidden"
-                name="DOB"
-                value={dob ? dob.toISOString() : ""}
-              />
-              <DatePicker
-                selected={dob}
-                onChange={handleDobChange}
-                className="border rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-400"
-                dateFormat="yyyy-MM-dd"
-                placeholderText="Select Date of Birth"
-              />
-            </div>
-            <div className="mb-4">
-              <Field
-                type="text"
-                name="Password"
-                placeholder="Password"
-                className="border rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-400"
-              />
-              <ErrorMessage
-                name="Password"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-
-            <div className="flex justify-between mb-4">
-              <a href="/userLogin" className="text-blue-300 hover:underline">
-                Already have an account? Login
-              </a>
-            </div>
-            <div className="flex justify-center">
-              <button
-                type="submit"
-                className="bg-gradient-to-r from-cyan-500 to-blue-300 ... text-white px-4 py-2 rounded-md hover:bg-blue-400"
-              >
-                Create NewUser
-              </button>
-            </div>
-          </Form>
-        </Formik>
+    <div className="relative h-screen overflow-hidden">
+      <div className="fixed top-0 w-full z-50"><Header /></div>
+      <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+        <div className="bg-white p-6 rounded shadow-md w-64 mt-16">
+          <h2 className="text-sm font-semibold mb-4 text-center">Create New User</h2>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          >
+            <Form>
+              <div className="mb-2">
+                <Field
+                  type="text"
+                  name="UserName"
+                  placeholder="Username"
+                  className="border rounded-md px-2 py-1 w-full focus:outline-none focus:border-pink-500 text-xs"
+                />
+                <ErrorMessage
+                  name="UserName"
+                  component="div"
+                  className="text-red-600 text-xxs"
+                />
+              </div>
+              <div className="mb-2">
+                <Field
+                  type="text"
+                  name="Name"
+                  placeholder="Name"
+                  className="border rounded-md px-2 py-1 w-full focus:outline-none focus:border-blue-400 text-xs"
+                />
+                <ErrorMessage
+                  name="Name"
+                  component="div"
+                  className="text-red-600 text-xxs"
+                />
+              </div>
+              <div className="mb-2">
+                <Field
+                  type="text"
+                  name="Email"
+                  placeholder="Email"
+                  className="border rounded-md px-2 py-1 w-full focus:outline-none focus:border-blue-400 text-xs"
+                />
+                <ErrorMessage
+                  name="Email"
+                  component="div"
+                  className="text-red-600 text-xxs"
+                />
+              </div>
+              <div className="mb-2">
+                <Field
+                  type="text"
+                  name="Phone"
+                  placeholder="Phone"
+                  className="border rounded-md px-2 py-1 w-full focus:outline-none focus:border-blue-400 text-xs"
+                />
+                <ErrorMessage
+                  name="Phone"
+                  component="div"
+                  className="text-red-600 text-xxs"
+                />
+              </div>
+              <div className="mb-2">
+                <input
+                  type="hidden"
+                  name="DOB"
+                  value={dob ? dob.toISOString() : ""}
+                />
+                <DatePicker
+                  selected={dob}
+                  onChange={handleDobChange}
+                  className="border rounded-md px-2 py-1 w-full focus:outline-none focus:border-blue-400 text-xs"
+                  dateFormat="yyyy-MM-dd"
+                  placeholderText="Select Date of Birth"
+                />
+              </div>
+              <div className="mb-2">
+                <Field
+                  type="text"
+                  name="Password"
+                  placeholder="Password"
+                  className="border rounded-md px-2 py-1 w-full focus:outline-none focus:border-blue-400 text-xs"
+                />
+                <ErrorMessage
+                  name="Password"
+                  component="div"
+                  className="text-red-600 text-xxs"
+                />
+              </div>
+              <div className="flex justify-between mb-2">
+                <a
+                  href="/userLogin"
+                  className="text-blue-300 hover:underline text-xs"
+                >
+                  Already have an account? Login
+                </a>
+              </div>
+              <div className="flex justify-center">
+                <button
+                  type="submit"
+                  className="bg-gradient-to-r from-cyan-500 to-blue-300 text-white px-3 py-1 rounded-md hover:bg-blue-400 text-xs"
+                >
+                  Create New User
+                </button>
+              </div>
+            </Form>
+          </Formik>
+        </div>
       </div>
       <ToastContainer />
-    </div>
     </div>
   );
 };

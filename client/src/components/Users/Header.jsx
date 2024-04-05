@@ -11,7 +11,7 @@ const Header = () => {
     <div className="">
       <nav className="fixed top-0 w-full bg-gradient-to-r from-cyan-500 to-blue-300 z-10">
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 j">
-          <div className="relative flex h-16 items-center justify-between">
+          <div className="relative flex h-11 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
               <button
                 type="button"
@@ -83,7 +83,7 @@ const Header = () => {
                 >
                   <span className="absolute -inset-1.5" />
                   <img
-                    className="h-11 w-11 rounded-full "
+                    className="h-8 w-8 rounded-full "
                     src={user ? users.user.profileImage : "Guest-user.PNG"}
                     alt=""
                   />
