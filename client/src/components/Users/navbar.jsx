@@ -35,6 +35,9 @@ const Navbar = () => {
     const userId = user._id;
     navigate("/Profile");
   };
+  const handlesettings = () => {
+    navigate("/Settings")
+  }
 
   const [isCreatePostModalOpen, setCreatePostModalOpen] = useState(false);
   const [isSearchModalOpen, setSearchModalOpen] = useState(false);
@@ -75,7 +78,7 @@ const Navbar = () => {
           <li className="mb-2">
             <a
               onClick={home}
-              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs"
+              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs cursor-pointer"
             >
               <FontAwesomeIcon icon={faHome} className="mr-2" /> Home
             </a>
@@ -83,7 +86,7 @@ const Navbar = () => {
           <li className="mb-2">
             <a
               onClick={openSearchModal}
-              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs"
+              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs cursor-pointer"
             >
               <FontAwesomeIcon icon={faSearch} className="mr-2" /> Search
             </a>
@@ -91,7 +94,7 @@ const Navbar = () => {
           <li className="mb-2">
             <a
               onClick={openMessageModal}
-              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs"
+              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs cursor-pointer"
             >
               <FontAwesomeIcon icon={faEnvelope} className="mr-2" /> Messages
             </a>
@@ -99,7 +102,7 @@ const Navbar = () => {
           <li className="mb-2">
             <a
               onClick={openCreatePostModal}
-              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs"
+              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs cursor-pointer"
             >
               <FontAwesomeIcon icon={faPlus} className="mr-2" /> Create
             </a>
@@ -107,15 +110,15 @@ const Navbar = () => {
           <li className="mb-2">
             <a
               href="#"
-              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs"
+              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs cursor-pointer"
             >
               <FontAwesomeIcon icon={faBell} className="mr-2" /> Notification
             </a>
           </li>
           <li className="mb-2">
             <a
-              href="#"
-              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs"
+              onClick={handlesettings}
+              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs cursor-pointer"
             >
               <FontAwesomeIcon icon={faCog} className="mr-2" /> Settings
             </a>
@@ -123,7 +126,7 @@ const Navbar = () => {
           <li className="mb-2">
             <a
               onClick={Logout}
-              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs"
+              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs cursor-pointer"
             >
               <FontAwesomeIcon icon={faSignOutAlt} className="mr-2" /> Logout
             </a>
@@ -131,7 +134,7 @@ const Navbar = () => {
           <li>
             <a
               onClick={handleClick}
-              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs" 
+              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs cursor-pointer" 
             >
               <FontAwesomeIcon icon={faUser} className="mr-2" /> Profile
             </a>

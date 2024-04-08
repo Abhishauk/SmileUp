@@ -18,7 +18,7 @@ const Post = () => {
   }, []);
 
   return (
-    <div className="flex justify-center mt-24">
+    <div className="flex justify-center mt-10">
       <div className="navbar w-1/5 p-4" />
       <div className="posts-container w-1/3 p-4 h-1/3">
         {postData.map((post, index) =>
@@ -32,7 +32,7 @@ const Post = () => {
                 Your browser does not support the video tag.
               </video>
             </div>
-            <div className="profile-info absolute top-4 left-4 flex items-center">
+            <div className="profile-info absolute top-2 left-2 flex items-center">
               <img
                 src={post.userDetails.profileImage}
                 alt="Guest"

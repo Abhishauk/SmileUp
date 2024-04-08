@@ -9,7 +9,7 @@ import Profile from './scenes/User/Profile';
 import SearchProfile from './components/Users/SearchProfile';
 // import CreatePost from './scenes/User/createPost'
 import Messages from './components/Users/Messages';
-
+import Settings from './components/Users/Settings';
 
 function App() {
   return (
@@ -25,6 +25,7 @@ function App() {
         <Route path='/Profile' element={<Profile/>}/>
         <Route path='/Messages' element={<Messages/>}/>
         <Route path="/SearchProfile/:userId" element={<SearchProfile />} />
+        <Route path='/Settings' element={<Settings />} />
 
         {/* <Route path='/Search' element = {<Search/>}/> */}
 
