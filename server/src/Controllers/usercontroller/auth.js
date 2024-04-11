@@ -1,6 +1,7 @@
 
 const User = require("../../Models/user.js")
 const Post = require("../../Models/post.js")
+const Followers = require('../../Models/followers.js')
 const bcrypt = require('bcrypt');
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
@@ -109,7 +110,7 @@ module.exports = {
       existingUser.profileImage = result.secure_url;
 
       await existingUser.save();
-      console.log(existingUser);
+      // console.log(existingUser);
 
       return res.status(200).json({
         message: 'Profile picture uploaded successfully',
@@ -162,9 +163,7 @@ module.exports = {
   GetPosts: async (req, res) => {
     try {
       const userId = req.body.userId
-      console.log("xxxxxxxxxx", userId);
       const posts = await Post.find({ userId: userId });
-      console.log("mmmmmmmmmm", posts);
       return res.status(200).json({ posts })
 
     } catch (error) {
@@ -213,14 +212,13 @@ module.exports = {
   },
 
   SearchUser: async(req,res) => {
-    console.log("11111111111",req.body);
     try {
       let searchName = req.body.users;
-      console.log(searchName);
+      // console.log(searchName);
       const users = await User.find({ UserName: { $regex: new RegExp(`^${searchName}`, 'i') } });
 
       
-      console.log(users);   
+      // console.log(users);   
 
       return res.status(200).json({users})
       
@@ -229,30 +227,53 @@ module.exports = {
     }
   },
   SerachUserProfile: async(req , res) => {
-      console.log("::::::::;",req.body);
+     
       try {
         const { userId } = req.body;
-        console.log("kkk", userId);
-    
+   
         // Assuming User is a Mongoose model
         const userData = await User.findById(userId);
     
-        console.log("uuuuu", userData);
         return res.status(200).json({userData})
       } catch (error) {
         
       }
   },
   getDatas : async(req ,res) => {
-    console.log("mnnmnmnmnmnm");
+ 
     try {
       const datas =  await User.find();
-      console.log(".......///////",datas);
       return res.status(200).json({datas})
       
     } catch (error) {
       
     }
+  },
+  followUser: async (req, res) => {
+    try {
+      const { userId, followerId } = req.body; // Assuming userId and followerId are sent in the request body
+      console.log(":::::::::;",req.body);
+
+      // Check if the follower entry already exists
+      const existingFollower = await Followers.findOne({ userId, followerId });
+      if (existingFollower) {
+        return res.status(400).json({ error: "User is already followed" });
+      }
+
+      // Create a new follower entry
+      const newFollower = new Followers({
+        userId,
+        followerId,
+      });
+
+      await newFollower.save();
+
+      res.status(200).json({ message: "User followed successfully" });
+    } catch (error) {
+      console.error("Error following user:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  
   }
 
 }

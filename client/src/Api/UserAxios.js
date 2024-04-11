@@ -112,6 +112,20 @@ export const getDatas = async () => {
   }
 }
 
+export const followUser = async (userid) => {
+  try {
+    const response =  await
+    axios({
+      method: "post",
+      url: "http://localhost:3001/Follower",
+      data:{userid}
+    });
+    return response
+    
+  } catch (error) {
+    
+  }
+}
 
 
 

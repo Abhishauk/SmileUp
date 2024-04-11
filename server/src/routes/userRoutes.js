@@ -14,7 +14,7 @@ router.get('/Home',usercontroller.Home)
 router.post("/SearchUser",usercontroller.SearchUser);
 router.post("/SerachUserProfile",usercontroller.SerachUserProfile)
 router.get("/getDatas",usercontroller.getDatas);
-
+router.post("/Follower",usercontroller.followUser);
 
 
 
