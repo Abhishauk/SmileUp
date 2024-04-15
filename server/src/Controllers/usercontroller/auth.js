@@ -251,31 +251,34 @@ module.exports = {
   },
   followUser: async (req, res) => {
     try {
-      const { userId, followerId } = req.body; // Assuming userId and followerId are sent in the request body
-      console.log(":::::::::;",req.body);
-
+      const { userId, followerId } = req.body;
+      console.log("Request Body:", req.body);
+  
+      // Check if userId and followerId are present
+      if (!userId || !followerId) {
+        return res.status(400).json({ error: "Both userId and followerId are required" });
+      }
+  
       // Check if the follower entry already exists
       const existingFollower = await Followers.findOne({ userId, followerId });
       if (existingFollower) {
         return res.status(400).json({ error: "User is already followed" });
       }
-
+  
       // Create a new follower entry
       const newFollower = new Followers({
         userId,
         followerId,
       });
-
+  
       await newFollower.save();
-
+  
       res.status(200).json({ message: "User followed successfully" });
     } catch (error) {
       console.error("Error following user:", error);
       res.status(500).json({ error: "Internal server error" });
     }
-  
   }
-
 }
 
 

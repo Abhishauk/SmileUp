@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 Modal.setAppElement("#root");
 
 const ModalContent = ({ onRequestClose }) => {
+  
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -25,6 +26,7 @@ const ModalContent = ({ onRequestClose }) => {
   };
 
   const handleProfile = (userId) => {
+    console.log("pppppppppp",userId);
     navigate(`/SearchProfile/${userId}`);
   };
 
