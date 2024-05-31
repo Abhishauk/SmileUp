@@ -39,7 +39,7 @@ const Navbar = () => {
     navigate("/Profile");
   };
   const handlesettings = () => {
-    navigate("/Settings", { state: { user } });
+    navigate("/Settings");
   };
 
   const [isCreatePostModalOpen, setCreatePostModalOpen] = useState(false);

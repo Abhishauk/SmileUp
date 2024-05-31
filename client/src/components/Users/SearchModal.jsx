@@ -6,7 +6,7 @@ import { SerachUser, followUser } from "../../Api/UserAxios"; // Import the foll
 import { useNavigate } from "react-router-dom";
 Modal.setAppElement("#root");
 
-const ModalContent = ({ onRequestClose }) => {
+const ModalContent = ({ onRequestClose }) =>{ 
   
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
