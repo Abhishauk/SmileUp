@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 import Header from "../../components/Users/Header";
 import Navbar from "../../components/Users/navbar";
 import { SerachUserProfile } from "../../Api/UserAxios";

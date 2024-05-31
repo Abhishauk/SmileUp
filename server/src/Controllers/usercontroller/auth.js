@@ -278,9 +278,19 @@ module.exports = {
       console.error("Error following user:", error);
       res.status(500).json({ error: "Internal server error" });
     }
-  }
+  },
+  changePass : async(req , res) => {
+       try {
+
+        const  userId  = req.body;
+        console.log(">>???>>>>>??",userId);
+        
+       } catch (error) {
+        
+       }
 }
 
+}
 
 
 

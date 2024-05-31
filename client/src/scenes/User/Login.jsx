@@ -35,7 +35,6 @@ const Login = () => {
   async function getUser(values) {
     userLogin(values)
       .then((response) => {
-        console.log(response.data.token);
         dispatch(
           setLogin({
             user: response.data.user,

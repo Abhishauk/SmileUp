@@ -26,8 +26,7 @@ function App() {
         <Route path='/Messages' element={<Messages/>}/>
         <Route path="/SearchProfile/:userId" element={<SearchProfile />} />
         <Route path='/Settings' element={<Settings />} />
-
-        {/* <Route path='/Search' element = {<Search/>}/> */}
+      {/* <Route path='/Search' element = {<Search/>}/> */}
 
         
 

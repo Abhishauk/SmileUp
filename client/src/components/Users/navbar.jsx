@@ -19,10 +19,13 @@ import { createpost } from "../../Api/PostAxios";
 import { SerachUser } from "../../Api/UserAxios";
 import MessageModal from "./Messages";
 
+
+
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.authslice.user);
+  // console.log("---------",user.user._id);
 
   const Logout = () => {
     dispatch(clearToken());
@@ -32,12 +35,12 @@ const Navbar = () => {
   };
 
   const handleClick = () => {
-    const userId = user._id;
+  
     navigate("/Profile");
   };
   const handlesettings = () => {
-    navigate("/Settings")
-  }
+    navigate("/Settings", { state: { user } });
+  };
 
   const [isCreatePostModalOpen, setCreatePostModalOpen] = useState(false);
   const [isSearchModalOpen, setSearchModalOpen] = useState(false);

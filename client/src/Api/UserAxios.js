@@ -126,6 +126,20 @@ export const followUser = async (userid) => {
     
   }
 }
+export const changePass = async (userid) => {
+  console.log("oooooo",userid);
+  try {
+    const respo = await
+    axios({
+      method: "post",
+      url:"http://localhost:3001/changePass",
+      data:{userid}
+    })
+    return respo
+  } catch (error) {
+    
+  }
+}
 
 
 

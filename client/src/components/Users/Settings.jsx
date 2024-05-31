@@ -1,11 +1,17 @@
 import React from "react";
 import Header from "../../components/Users/Header";
 import Navbar from "../../components/Users/navbar";
+import { useLocation } from "react-router-dom";
+import {changePass} from '../../Api/UserAxios'
 
 const Settings = () => {
-  const handlechangepass = () => {
-
-    
+  const location = useLocation();
+  const user = location.state?.user;
+  console.log(",,,,,,,",user.user._id);
+  const userId = user.user._id
+  const handlechangepass =async () => {
+    const response = await changePass(userId)
+    console.log(response);
 
   }
   return (
