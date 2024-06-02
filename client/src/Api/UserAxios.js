@@ -126,15 +126,15 @@ export const followUser = async (userid) => {
     
   }
 }
-export const changePass = async (pass , user) => {
+export const changePass = async (pass , userId) => {
   console.log("oooooo",pass);
-  console.log("llllbbb",user);
+  console.log("llllbbb",userId);
   try {
     const respo = await
     axios({
       method: "post",
       url:"http://localhost:3001/changePass",
-      data:{ pass, user }
+      data:{ pass, userId }
     })
     return respo
   } catch (error) {

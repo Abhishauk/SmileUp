@@ -12,6 +12,8 @@ const Settings = () => {
   const navigate = useNavigate();
   const user = useSelector(state => state.authslice.user);
   console.log("zzzaaaazzzz", user);
+  const userId = user.user._id;
+  console.log("5555555555",userId);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -84,7 +86,7 @@ const Settings = () => {
         <ChangePassModal
           isOpen={isModalOpen}
           onRequestClose={closeModal}
-          user={user}
+          userId={userId}
         />}
     </div>
   );

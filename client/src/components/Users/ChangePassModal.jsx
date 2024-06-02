@@ -6,7 +6,8 @@ import { changePass } from "../../Api/UserAxios";
 
 Modal.setAppElement("#root");
 
-const ModalContent = ({ onRequestClose, user }) => {
+const ModalContent = ({ onRequestClose, userId }) => {
+  console.log("kk",userId);
   const [pass, setPass] = React.useState({
     currentPassword: "",
     newPassword: ""
@@ -22,7 +23,7 @@ const ModalContent = ({ onRequestClose, user }) => {
 
   const handleSetPass = async () => {
     if (pass.currentPassword && pass.newPassword) {
-      const respo = await changePass(pass, user);
+      const respo = await changePass(pass, userId);
       console.log("0000", respo);
     } else {
       console.log("Please fill in both fields");
@@ -65,7 +66,7 @@ const ModalContent = ({ onRequestClose, user }) => {
   );
 };
 
-const ChangePassModal = ({ isOpen, onRequestClose, user }) => {
+const ChangePassModal = ({ isOpen, onRequestClose, userId }) => {
   return (
     <Modal
       isOpen={isOpen}
@@ -88,7 +89,7 @@ const ChangePassModal = ({ isOpen, onRequestClose, user }) => {
         }
       }}
     >
-      <ModalContent onRequestClose={onRequestClose} user={user} />
+      <ModalContent onRequestClose={onRequestClose} userId={userId} />
     </Modal>
   );
 };

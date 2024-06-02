@@ -263,24 +263,28 @@ module.exports = {
   },
   changePass: async (req, res) => {
     try {
-      const { pass, user } = req.body;
-      console.log("Password:", pass.currentPassword);
-      console.log("User:", user.user._id);
-      const id = user.user._id;
-      const isMatch = await bcrypt.compare(
-        pass.currentPassword,
-        user.user.Password
-      );
+      const { pass, userId } = req.body;
+
+      const user = await User.findById(userId);
+
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      const isMatch = await bcrypt.compare(pass.currentPassword, user.Password);
 
       if (isMatch) {
         const newPasswordHash = await bcrypt.hash(pass.newPassword, 10);
 
-        await User.findByIdAndUpdate(id, { Password: newPasswordHash });
+        await User.findByIdAndUpdate(userId, { Password: newPasswordHash });
 
         res.status(200).json({ message: "Password updated successfully" });
       } else {
         res.status(400).json({ error: "Current password is incorrect" });
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error updating password:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
   }
 };
