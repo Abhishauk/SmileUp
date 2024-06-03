@@ -159,16 +159,7 @@ module.exports = {
       res.status(500).json({ error: error.message });
     }
   },
-  // Home: async  (req,res) => {
-  //   try {
-  //    const posts = await Post.find();
-  //    console.log("ddddddddddd",posts);
-  //    return res.status(200).json({posts})
 
-  //   } catch (error) {
-  //     res.status(500).json({ error: error.message });
-  //   }
-  // }
   Home: async (req, res) => {
     try {
       const postsDetails = await Post.aggregate([
@@ -201,12 +192,10 @@ module.exports = {
   SearchUser: async (req, res) => {
     try {
       let searchName = req.body.users;
-      // console.log(searchName);
+
       const users = await User.find({
         UserName: { $regex: new RegExp(`^${searchName}`, "i") }
       });
-
-      // console.log(users);
 
       return res.status(200).json({ users });
     } catch (error) {
@@ -217,7 +206,6 @@ module.exports = {
     try {
       const { userId } = req.body;
 
-      // Assuming User is a Mongoose model
       const userData = await User.findById(userId);
 
       return res.status(200).json({ userData });
@@ -234,20 +222,17 @@ module.exports = {
       const { userId, followerId } = req.body;
       console.log("Request Body:", req.body);
 
-      // Check if userId and followerId are present
       if (!userId || !followerId) {
         return res
           .status(400)
           .json({ error: "Both userId and followerId are required" });
       }
 
-      // Check if the follower entry already exists
       const existingFollower = await Followers.findOne({ userId, followerId });
       if (existingFollower) {
         return res.status(400).json({ error: "User is already followed" });
       }
 
-      // Create a new follower entry
       const newFollower = new Followers({
         userId,
         followerId

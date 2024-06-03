@@ -4,15 +4,15 @@ const FollowingSchema = new mongoose.Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User', // Reference to the User model
+      ref: 'User', 
       required: true,
     },
     followingId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User', // Reference to the User model
+      ref: 'User', 
       required: true,
     },
-    // Other fields specific to following if needed
+   
   }
 );
 
