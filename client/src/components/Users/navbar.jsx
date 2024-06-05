@@ -19,12 +19,10 @@ import { createpost } from "../../Api/PostAxios";
 import { SerachUser } from "../../Api/UserAxios";
 import MessageModal from "./Messages";
 
-
-
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.authslice.user);
+  const user = useSelector(state => state.authslice.user);
   // console.log("---------",user.user._id);
 
   const Logout = () => {
@@ -35,7 +33,6 @@ const Navbar = () => {
   };
 
   const handleClick = () => {
-  
     navigate("/Profile");
   };
   const handlesettings = () => {
@@ -137,7 +134,7 @@ const Navbar = () => {
           <li>
             <a
               onClick={handleClick}
-              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs cursor-pointer" 
+              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs cursor-pointer"
             >
               <FontAwesomeIcon icon={faUser} className="mr-2" /> Profile
             </a>
@@ -148,7 +145,7 @@ const Navbar = () => {
       <CreatePostModal
         isModalOpen={isCreatePostModalOpen}
         closeModal={closeCreatePostModal}
-        handleVideoDrop={(file) => {
+        handleVideoDrop={file => {
           createpost(file, user);
           setVideoFile(file);
         }}
