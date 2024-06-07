@@ -56,7 +56,7 @@ const ModalContent = ({ onRequestClose, userId }) => {
           className="border p-2 rounded-md w-full"
         />
         <button
-          className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm w-full"
+          className="bg-gradient-to-r from-cyan-500 to-blue-300 text-white px-3 py-1 rounded-md hover:bg-cyan-500 text-sm w-full"
           onClick={handleSetPass}
         >
           Set Password

@@ -8,22 +8,24 @@ import {
   faBell,
   faCog,
   faSignOutAlt,
-  faUser
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { setLogout, clearUser, clearToken } from "../../state/slice";
 import { useNavigate } from "react-router-dom";
 import CreatePostModal from "./CreatePostModal";
 import SearchModal from "./SearchModal";
-import { createpost } from "../../Api/PostAxios";
-import { SerachUser } from "../../Api/UserAxios";
 import MessageModal from "./Messages";
+import { createpost } from "../../Api/PostAxios";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector(state => state.authslice.user);
-  // console.log("---------",user.user._id);
+  const user = useSelector((state) => state.authslice.user);
+  const [isCreatePostModalOpen, setCreatePostModalOpen] = useState(false);
+  const [isSearchModalOpen, setSearchModalOpen] = useState(false);
+  const [isMessageModalOpen, setMessageModalOpen] = useState(false);
+  const [videoFile, setVideoFile] = useState(null);
 
   const Logout = () => {
     dispatch(clearToken());
@@ -32,112 +34,81 @@ const Navbar = () => {
     navigate("/userLogin");
   };
 
-  const handleClick = () => {
-    navigate("/Profile");
-  };
-  const handlesettings = () => {
-    navigate("/Settings");
-  };
+  const openCreatePostModal = () => setCreatePostModalOpen(true);
+  const closeCreatePostModal = () => setCreatePostModalOpen(false);
 
-  const [isCreatePostModalOpen, setCreatePostModalOpen] = useState(false);
-  const [isSearchModalOpen, setSearchModalOpen] = useState(false);
-  const [isMessageModalOpen, setMessageModalOpen] = useState(false);
+  const openSearchModal = () => setSearchModalOpen(true);
+  const closeSearchModal = () => setSearchModalOpen(false);
 
-  const openCreatePostModal = () => {
-    setCreatePostModalOpen(true);
-  };
-  const closeCreatePostModal = () => {
-    setCreatePostModalOpen(false);
-  };
-
-  const home = () => {
-    navigate("/Home");
-  };
-
-  const openSearchModal = () => {
-    setSearchModalOpen(true);
-  };
-
-  const closeSearchModal = () => {
-    setSearchModalOpen(false);
-  };
-  const openMessageModal = () => {
-    setMessageModalOpen(true);
-  };
-
-  const closeMessageModal = () => {
-    setMessageModalOpen(false);
-  };
-
-  const [videoFile, setVideoFile] = useState(null);
+  const openMessageModal = () => setMessageModalOpen(true);
+  const closeMessageModal = () => setMessageModalOpen(false);
 
   return (
-    <div className="bg-gradient-to-r from-cyan-500 to-blue-300 rounded-xl w-44 fixed left-10 top-20 py-1 px-2 ">
+    <div className="bg-gradient-to-r from-cyan-500 to-blue-300 rounded-xl w-44 fixed left-10 top-20 py-1 px-2">
       <nav>
         <ul className="text-white">
           <li className="mb-2">
-            <a
-              onClick={home}
-              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs cursor-pointer"
+            <button
+              onClick={() => navigate("/Home")}
+              className="block w-full text-left hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs cursor-pointer"
             >
               <FontAwesomeIcon icon={faHome} className="mr-2" /> Home
-            </a>
+            </button>
           </li>
           <li className="mb-2">
-            <a
+            <button
               onClick={openSearchModal}
-              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs cursor-pointer"
+              className="block w-full text-left hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs cursor-pointer"
             >
               <FontAwesomeIcon icon={faSearch} className="mr-2" /> Search
-            </a>
+            </button>
           </li>
           <li className="mb-2">
-            <a
+            <button
               onClick={openMessageModal}
-              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs cursor-pointer"
+              className="block w-full text-left hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs cursor-pointer"
             >
               <FontAwesomeIcon icon={faEnvelope} className="mr-2" /> Messages
-            </a>
+            </button>
           </li>
           <li className="mb-2">
-            <a
+            <button
               onClick={openCreatePostModal}
-              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs cursor-pointer"
+              className="block w-full text-left hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs cursor-pointer"
             >
               <FontAwesomeIcon icon={faPlus} className="mr-2" /> Create
-            </a>
+            </button>
           </li>
           <li className="mb-2">
-            <a
-              href="#"
-              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs cursor-pointer"
+            <button
+              className="block w-full text-left hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs cursor-pointer"
             >
               <FontAwesomeIcon icon={faBell} className="mr-2" /> Notification
-            </a>
+            </button>
           </li>
           <li className="mb-2">
-            <a
-              onClick={handlesettings}
-              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs cursor-pointer"
+            <button
+              onClick={() => navigate("/Settings")}
+              className="block w-full text-left hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs cursor-pointer"
             >
               <FontAwesomeIcon icon={faCog} className="mr-2" /> Settings
-            </a>
+            </button>
           </li>
           <li className="mb-2">
-            <a
+            <button
               onClick={Logout}
-              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs cursor-pointer"
+              className="block w-full text-left hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs cursor-pointer"
             >
               <FontAwesomeIcon icon={faSignOutAlt} className="mr-2" /> Logout
-            </a>
+            </button>
           </li>
           <li>
-            <a
-              onClick={handleClick}
-              className="block hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs cursor-pointer"
+            <button
+              onClick={() => navigate("/Profile")}
+              className="block w-full text-left hover:bg-white hover:text-black py-1 px-2 rounded transition duration-300 text-xs cursor-pointer"
             >
               <FontAwesomeIcon icon={faUser} className="mr-2" /> Profile
-            </a>
+            </button>
           </li>
         </ul>
       </nav>
@@ -145,22 +116,16 @@ const Navbar = () => {
       <CreatePostModal
         isModalOpen={isCreatePostModalOpen}
         closeModal={closeCreatePostModal}
-        handleVideoDrop={file => {
+        handleVideoDrop={(file) => {
           createpost(file, user);
           setVideoFile(file);
         }}
         videoFile={videoFile}
       />
 
-      <SearchModal
-        isOpen={isSearchModalOpen}
-        onRequestClose={closeSearchModal}
-      />
+      <SearchModal isOpen={isSearchModalOpen} onRequestClose={closeSearchModal} />
 
-      <MessageModal
-        isOpen={isMessageModalOpen}
-        onRequestClose={closeMessageModal}
-      />
+      <MessageModal isOpen={isMessageModalOpen} onRequestClose={closeMessageModal} />
     </div>
   );
 };
