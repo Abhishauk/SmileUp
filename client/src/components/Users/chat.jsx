@@ -1,77 +1,102 @@
-import React, { useEffect, useState } from "react";
-import ScrollToBottom from "react-scroll-to-bottom";
+// src/components/ChatModal.jsx
+import React, { useState, useEffect } from "react";
+import Modal from "react-modal";
+import socket from "./socketio"; // Import the socket
 
-function Chat({ socket, username, room }) {
-  const [currentMessage, setCurrentMessage] = useState("");
-  const [messageList, setMessageList] = useState([]);
+const ChatModal = ({ isOpen, onRequestClose, user }) => {
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
 
-  const sendMessage = async () => {
-    if (currentMessage !== "") {
-      const messageData = {
-        room: room,
-        author: username,
-        message: currentMessage,
-        time:
-          new Date(Date.now()).getHours() +
-          ":" +
-          new Date(Date.now()).getMinutes(),
+  useEffect(() => {
+    if (isOpen && user) {
+      socket.emit("joinRoom", user._id);
+
+      socket.on("message", (message) => {
+        setMessages((prevMessages) => [...prevMessages, message]);
+      });
+
+      return () => {
+        socket.emit("leaveRoom", user._id);
+        socket.off("message");
       };
+    }
+  }, [isOpen, user]);
 
-      await socket.emit("send_message", messageData);
-      setMessageList((list) => [...list, messageData]);
-      setCurrentMessage("");
+  const sendMessage = () => {
+    if (newMessage.trim()) {
+      const messageData = {
+        sender: "currentUserId", // Replace with actual sender ID
+        content: newMessage,
+        timestamp: new Date(),
+      };
+      socket.emit("sendMessage", { roomId: user._id, message: messageData });
+      setMessages((prevMessages) => [...prevMessages, messageData]);
+      setNewMessage("");
     }
   };
 
-  useEffect(() => {
-    socket.on("receive_message", (data) => {
-      setMessageList((list) => [...list, data]);
-    });
-  }, [socket]);
-
   return (
-    <div className="chat-window">
-      <div className="chat-header">
-        <p>Live Chat</p>
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onRequestClose}
+      contentLabel="Chat Modal"
+      style={{
+        overlay: {
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+        },
+        content: {
+          width: "40%",
+          height: "80%",
+          margin: "auto",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-start",
+          alignItems: "flex-start",
+          padding: "20px",
+          backgroundColor: "white",
+          border: "none",
+          overflow: "hidden",
+        },
+      }}
+    >
+      <div className="flex flex-col w-full h-full">
+        <h2 className="font-semibold mb-2">Chat with {user.UserName}</h2>
+        <div
+          className="flex-grow overflow-auto p-2 border rounded mb-2"
+          style={{ height: "300px" }}
+        >
+          {messages.map((msg, index) => (
+            <div
+              key={index}
+              className={`mb-2 p-2 rounded ${
+                msg.sender === "currentUserId" ? "bg-blue-100 self-end" : "bg-gray-100"
+              }`}
+            >
+              <p>{msg.content}</p>
+              <small className="text-gray-500">
+                {new Date(msg.timestamp).toLocaleTimeString()}
+              </small>
+            </div>
+          ))}
+        </div>
+        <div className="flex w-full">
+          <input
+            type="text"
+            value={newMessage}
+            onChange={(e) => setNewMessage(e.target.value)}
+            className="border border-gray-300 p-2 h-10 rounded-l-lg bg-white flex-grow"
+            placeholder="Type a message..."
+          />
+          <button
+            onClick={sendMessage}
+            className="bg-cyan-500 text-white px-4 py-2 h-10 rounded-r-lg"
+          >
+            Send
+          </button>
+        </div>
       </div>
-      <div className="chat-body">
-        <ScrollToBottom className="message-container">
-          {messageList.map((messageContent) => {
-            return (
-              <div
-                className="message"
-                id={username === messageContent.author ? "you" : "other"}
-              >
-                <div>
-                  <div className="message-content">
-                    <p>{messageContent.message}</p>
-                  </div>
-                  <div className="message-meta">
-                    <p id="time">{messageContent.time}</p>
-                    <p id="author">{messageContent.author}</p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </ScrollToBottom>
-      </div>
-      <div className="chat-footer">
-        <input
-          type="text"
-          value={currentMessage}
-          placeholder="Hey..."
-          onChange={(event) => {
-            setCurrentMessage(event.target.value);
-          }}
-          onKeyPress={(event) => {
-            event.key === "Enter" && sendMessage();
-          }}
-        />
-        <button onClick={sendMessage}>&#9658;</button>
-      </div>
-    </div>
+    </Modal>
   );
-}
+};
 
-export default Chat;
+export default ChatModal;

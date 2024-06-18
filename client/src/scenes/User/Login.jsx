@@ -24,17 +24,15 @@ const Login = () => {
     UserName: "",
     Password: ""
   };
-  const token = localStorage.getItem("token");
+   localStorage.getItem("token");
 
-  useEffect(() => {
-    if (token) {
-      navigate("/Home");
-    }
-  }, []);
+
 
   async function getUser(values) {
+    
     userLogin(values)
       .then((response) => {
+        console.log("response:",response);
         dispatch(
           setLogin({
             user: response.data.user,

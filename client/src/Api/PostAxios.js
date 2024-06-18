@@ -31,11 +31,15 @@ export const createpost = async (file,userid) => {
       
     }
   };
-  export const GetPostHome = async (userid) => {
+  export const GetPostHome = async (token) => {
+    console.log("mnmnmnm" , token);
     try {
       const posts = await axios({
         method: 'get',
-        url: 'http://localhost:3001/Home',
+        url: 'http://localhost:3001/GetPost',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       return posts;
     } catch (error) {

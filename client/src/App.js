@@ -16,7 +16,7 @@ function App() {
     <div className="">
       <Routes>
       {/* <Route path='/' element={<h1>hhhhhhh</h1>}/> */}
-        <Route path='/userLogin' element={<Login/>}/>
+        <Route path='/' element={<Login/>}/>
         <Route path='/userSignup' element={<Signup/>}/>
         <Route path='/adminLogin' element={<AdminLogin/>}/>
         <Route path='/adminPanel' element={<AdminPanel/>}/>

@@ -1,15 +1,7 @@
+// src/components/Navbar.jsx
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faHome,
-  faSearch,
-  faEnvelope,
-  faPlus,
-  faBell,
-  faCog,
-  faSignOutAlt,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
+import { faHome, faSearch, faEnvelope, faPlus, faBell, faCog, faSignOutAlt, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { setLogout, clearUser, clearToken } from "../../state/slice";
 import { useNavigate } from "react-router-dom";
@@ -17,6 +9,7 @@ import CreatePostModal from "./CreatePostModal";
 import SearchModal from "./SearchModal";
 import MessageModal from "./Messages";
 import { createpost } from "../../Api/PostAxios";
+
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -31,7 +24,7 @@ const Navbar = () => {
     dispatch(clearToken());
     dispatch(clearUser());
     dispatch(setLogout());
-    navigate("/userLogin");
+    navigate("/");
   };
 
   const openCreatePostModal = () => setCreatePostModalOpen(true);

@@ -1,13 +1,21 @@
-import jwt from 'jsonwebtoken';
+// middleware/verifyToken.js
+const jwt = require('jsonwebtoken');
 
-export const verifyToken = async (req , res ,next) => {
-    try {
-        const token = req.header("Authorization");
-        if(!token) {
-            return res.this.status(403).send("Access Denied")
-        }
-        
-    } catch (err) {
-        
+const verifyToken = (req, res, next) => {
+  try {
+    // Extract token from headers
+    const token = req.headers.authorization.split(' ')[1];
+    if (!token) {
+      return res.status(401).json({ error: 'Authentication failed. Token missing.' });
     }
-}
+
+    // Verify token
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    req.userData = { userId: decodedToken.id };
+    next();
+  } catch (error) {
+    return res.status(401).json({ error: 'Authentication failed. Invalid token.' });
+  }
+};
+
+module.exports = verifyToken;

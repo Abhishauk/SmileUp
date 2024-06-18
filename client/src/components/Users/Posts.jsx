@@ -1,27 +1,37 @@
+// Post.jsx
 import React, { useEffect, useState } from "react";
-import { GetPostHome } from "../../Api/PostAxios";
+import { useSelector } from "react-redux";
+import { GetPostHome } from "../../Api/PostAxios"; // Adjust the path as needed
 
 const Post = () => {
-  const [postData, setpostData] = useState([]);
+  const [postData, setPostData] = useState([]);
+  const token = useSelector((state) => state.authslice.token); // Ensure correct path to token
 
   useEffect(() => {
-    async function getData() {
+    const getData = async () => {
+      if (!token) {
+        console.error("Token is not available.");
+        return;
+      }
       try {
-        const response = await GetPostHome();
-        const postData = response.data.posts;
-        setpostData(postData);
+        const response = await GetPostHome(token);
+        setPostData(response.data.posts);
       } catch (error) {
         console.error("Error in GetPostHome:", error);
       }
-    }
+    };
     getData();
-  }, []);
+  }, [token]);
+
+  if (!token) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="flex justify-center mt-10">
       <div className="navbar w-1/5 p-4" />
       <div className="posts-container w-1/3 p-4 h-1/3">
-        {postData.map((post, index) =>
+        {postData.map((post) => (
           <div
             key={post._id}
             className="post mb-4 bg-white border border-gray-300 rounded-md relative w-full"
@@ -68,7 +78,7 @@ const Post = () => {
               </div>
             </div>
           </div>
-        )}
+        ))}
       </div>
     </div>
   );
