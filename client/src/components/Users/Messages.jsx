@@ -1,4 +1,4 @@
-// src/components/MessageModal.jsx
+
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import { getDatas, SerachUser } from "../../Api/UserAxios";

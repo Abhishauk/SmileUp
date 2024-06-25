@@ -1,7 +1,7 @@
-// src/components/ChatModal.jsx
+
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
-import socket from "./socketio"; // Import the socket
+import socket from "./socketio"; 
 
 const ChatModal = ({ isOpen, onRequestClose, user }) => {
   const [messages, setMessages] = useState([]);
