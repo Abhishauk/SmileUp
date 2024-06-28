@@ -25,7 +25,7 @@ const ChatModal = ({ isOpen, onRequestClose, user }) => {
   const sendMessage = () => {
     if (newMessage.trim()) {
       const messageData = {
-        sender: "currentUserId", // Replace with actual sender ID
+        sender: "currentUserId",
         content: newMessage,
         timestamp: new Date(),
       };

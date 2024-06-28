@@ -50,7 +50,11 @@ module.exports = {
       const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
       res
         .status(201)
-        .json({ msg: "User registered successfully", user: SaveUser , token: token});
+        .json({
+          msg: "User registered successfully",
+          user: SaveUser,
+          token: token
+        });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Internal server error" });
